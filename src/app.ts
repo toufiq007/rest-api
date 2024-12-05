@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Application } from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
@@ -9,7 +9,7 @@ dotenv.config();
 
 connectDb();
 
-const app = express();
+const app:Application = express();
 
 app.use(
   cors({
