@@ -4,7 +4,10 @@ import cookieParser from "cookie-parser";
 import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
+import connectDb from "./db/dbConnection";
 dotenv.config();
+
+connectDb();
 
 const app = express();
 
