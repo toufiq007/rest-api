@@ -2,23 +2,25 @@ import { Request, Response } from "express";
 import { authentication, random } from "helpers";
 import { UserModel } from "models/user";
 
-const register = async (req: Request, res: Response) => {
+const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { userName, email, password } = req.body;
 
     // check every data will be present or not
     if (!userName || !email || !password) {
-      return res.sendStatus(400).json({
+      res.sendStatus(400).json({
         message: "all fields are required!!",
       });
+      return;
     }
 
     // now check if the user is existing or not
     const isExists = await UserModel.find({ email });
     if (isExists) {
-      return res.sendStatus(400).json({
+      res.sendStatus(400).json({
         message: "user is already exists!!",
       });
+      return;
     }
 
     // create salt
@@ -36,15 +38,21 @@ const register = async (req: Request, res: Response) => {
     console.log(createdUser, "this is the new created user");
 
     // response back update created user
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: "user created successfully",
       data: createdUser,
     });
+    return;
   } catch (err) {
     console.log(err);
-    return res.status(400).json({
+    res.status(400).json({
       message: "something went wrong!",
     });
+    return;
   }
+};
+
+export const authenticationController = {
+  register,
 };

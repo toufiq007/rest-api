@@ -5,6 +5,7 @@ import compression from "compression";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDb from "./db/dbConnection";
+import authRouter from "routes/authentication.routes";
 dotenv.config();
 
 connectDb();
@@ -20,6 +21,9 @@ app.use(
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(compression());
+
+// using routes
+app.use("/",authRouter)
 
 // port
 const port = process.env.PORT || 5000;
