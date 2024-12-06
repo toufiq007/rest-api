@@ -6,18 +6,21 @@ const register = async (req: Request, res: Response): Promise<void> => {
   try {
     const { userName, email, password } = req.body;
 
+    // console.log(userName,email,password)
+
     // check every data will be present or not
     if (!userName || !email || !password) {
-      res.sendStatus(400).json({
+      res.status(400).json({
         message: "all fields are required!!",
       });
       return;
     }
 
     // now check if the user is existing or not
-    const isExists = await UserModel.find({ email });
+    const isExists = await UserModel.findOne({ email }); // userModel.findOne not userModel.find --> because findOne give one specific element and find gives a array of element
+    console.log(isExists);
     if (isExists) {
-      res.sendStatus(400).json({
+      res.status(400).json({
         message: "user is already exists!!",
       });
       return;
