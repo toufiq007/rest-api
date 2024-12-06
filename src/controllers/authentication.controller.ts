@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { authentication, random } from "helpers";
-import { UserModel } from "models/user";
+import { authentication, random } from "../helpers/index";
+import { UserModel } from "../models/user";
 
 const register = async (req: Request, res: Response): Promise<void> => {
   try {
