@@ -23,7 +23,7 @@ app.use(cookieParser());
 app.use(compression());
 
 // using routes
-app.use("/", authRoutes);
+app.use("/api", authRoutes);
 
 // port
 const port = process.env.PORT || 5000;
