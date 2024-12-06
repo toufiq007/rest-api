@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
-import { UserModel } from "models/user";
+import { UserModel } from "../models/user";
 
 // get all users from db
 const getUsers = async (req: Request, res: Response) => {
   try {
     const users = await UserModel.find();
-    return res.json({ success: true, users }).status(200);
+    res.json({ success: true, users }).status(200);
+    return;
   } catch (err) {
     console.log(err);
   }
