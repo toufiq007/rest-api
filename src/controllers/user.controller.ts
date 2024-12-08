@@ -60,12 +60,13 @@ const createNewUser = async (req: Request, res: Response) => {
 // delete user by id
 const deleteUserById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params; // get id from the request.params
     const deleteUser = await UserModel.findByIdAndDelete({ _id: id });
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
-      message: "user deleted successfully",
+      message: `${id} this user deleted successfully`,
     });
+    return;
   } catch (err) {
     console.log(err);
   }
