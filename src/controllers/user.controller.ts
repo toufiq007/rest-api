@@ -77,7 +77,21 @@ const updateUserById = async (req: Request, res: Response): Promise<void> => {
   try {
     const { userName } = req.body;
     const { id } = req.params;
-    const updatedUser = await UserModel.findByIdAndDelete(id, userName);
+
+    // find if user is present or not
+    const findUser = await UserModel.findOne({ _id: id });
+
+    if (!findUser) {
+      res.status(400).json({
+        success: false,
+        message: "user not found",
+      });
+      return;
+    }
+    // update user name
+    findUser.userName = userName;
+    const updatedUser = await findUser.save();
+    // send responspe
     res.status(200).json({
       success: true,
       message: "user updated successfully",
