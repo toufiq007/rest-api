@@ -73,15 +73,17 @@ const deleteUserById = async (req: Request, res: Response) => {
 };
 
 // update user by id
-const updateUserById = async (req: Request, res: Response) => {
+const updateUserById = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id, values } = req.body;
-    const updatedUser = await UserModel.findByIdAndUpdate(id, values);
-    return res.status(200).json({
+    const { userName } = req.body;
+    const { id } = req.params;
+    const updatedUser = await UserModel.findByIdAndDelete(id, userName);
+    res.status(200).json({
       success: true,
       message: "user updated successfully",
       data: updatedUser,
     });
+    return;
   } catch (err) {
     console.log(err);
   }

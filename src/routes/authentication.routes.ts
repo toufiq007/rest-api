@@ -10,5 +10,6 @@ router.post("/auth/register", authenticationController.register);
 router.post("/auth/login", authenticationController.login);
 router.get("/users", isAuthenticate, userController.getUsers);
 router.delete("/user/:id", userController.deleteUserById);
+router.put("/users/:id",userController.updateUserById)
 
 export default router;
